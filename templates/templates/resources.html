@@ -1,0 +1,30 @@
+<!-- resources.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources</title>
+</head>
+
+<body>
+    <h1>Resources</h1>
+
+    <!-- Zip Code Search form -->
+    <form method="post" action="{{ url_for('search') }}">
+        <label for="zip_code">Enter Zipcode:</label>
+        <input type="text" id="zip_code" name="zip_code" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display resources -->
+    <h2>Available Resources</h2>
+    <ul>
+        {% for resource in resources %}
+        <li>{{ resource.name }} - {{ resource.location }}</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>

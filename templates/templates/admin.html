@@ -1,0 +1,49 @@
+<!-- templates/admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+</head>
+<body>
+    <h1>Admin Page</h1>
+    <!-- Back to Dashboard button -->
+    <p><a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p>
+
+    <!-- Add Data Form -->
+    <h2>Add Data</h2>
+<form method="POST" action="{{ url_for('admin') }}">
+    {{ add_data_form.hidden_tag() }}
+    {{ add_data_form.table_type.label }} {{ add_data_form.table_type }}
+    {{ add_data_form.name.label }} {{ add_data_form.name }}
+    {{ add_data_form.capacity.label }} {{ add_data_form.capacity }}
+    {{ add_data_form.location.label }} {{ add_data_form.location }}
+    {{ add_data_form.contact_phone.label }} {{ add_data_form.contact_phone }}
+    {{ add_data_form.specialization.label }} {{ add_data_form.specialization }}
+    {{ add_data_form.submit }}
+</form>
+
+    <hr>
+
+     <!-- Display Data -->
+     <h2>Data</h2>
+     <ul>
+         {% for resource in resources %}
+             <li>
+                 {% if resource.table_type == 'shelter' %}
+                     Shelter - Name: {{ resource.name }} - Capacity: {{ resource.capacity }} - Location: {{ resource.location }} - Contact Phone: {{ resource.contact_phone }}
+                 {% elif resource.table_type == 'food_bank' %}
+                     Food Bank - Name: {{ resource.name }} - Capacity: {{ resource.capacity }} - Location: {{ resource.location }} - Contact Phone: {{ resource.contact_phone }}
+                 {% elif resource.table_type == 'mental_health' %}
+                     Mental Health - Name: {{ resource.name }} - Specialization: {{ resource.specialization }} - Location: {{ resource.location }} - Contact Phone: {{ resource.contact_phone }}
+                 {% endif %}
+                 <form method="POST" action="{{ url_for('delete_data', data_id=resource.id) }}">
+                     <button type="submit">Delete</button>
+                 </form>
+             </li>
+         {% endfor %}
+     </ul>
+ 
+ </body>
+ </html>
